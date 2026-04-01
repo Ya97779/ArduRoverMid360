@@ -1,0 +1,21 @@
+# ROS 编译生成文件 (绝对不能传)
+build/
+devel/
+install/
+.catkin_workspace
+CMakeLists.txt.user
+
+# Python 缓存 (避免冲突)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 日志与临时文件
+*.log
+*.swp
+*~
+.vscode/
+.idea/
+
+# 假设你录制了庞大的 rosbag 数据包，也要屏蔽
+*.bag
