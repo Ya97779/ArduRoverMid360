@@ -7,7 +7,7 @@
 ![LiDAR](https://img.shields.io/badge/Sensor-Livox_Mid--360-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
-本项目是一个基于 **NVIDIA Jetson Orin NX** 算力平台与 **Livox Mid-360** 激光雷达构建的全栈式自主移动机器人底盘系统。项目涵盖了从底层飞控通信（MAVLink）、多传感器融合 SLAM、自主导航规划、高层行为树（Behavior Tree）决策，到跨平台跨端 GUI 监控的完整软硬件闭环。
+本项目是一个基于**APM飞控**、**NVIDIA Jetson Orin NX** 算力平台与 **Livox Mid-360** 激光雷达构建的全栈式自主移动机器人底盘系统。项目涵盖了从底层飞控通信（MAVLink）、多传感器融合 SLAM、自主导航规划、高层行为树（Behavior Tree）决策，到跨平台跨端 GUI 监控的完整软硬件闭环。
 
 ## 🌟 核心功能与特色 (Key Features)
 
@@ -43,9 +43,26 @@ behavior_tree/
 autodock/                  # 自动对齐充电桩ROS包
 
 livox_ros_driver2/         # Mid360激光雷达官方驱动
+
+Start/                     # tmux一键启动脚本与上位机GUI界面
 ```
+
+## 启动步骤：(Launch Steps)
+- 1.启动mavros连接飞控：       ```roslaunch mavros apm.launch```
+- 2.设置飞控EKF原点和Home：可通过GUI点击或自己写发布脚本
+- 3.启动雷达驱动：             ``` roslaunch livox_ros_driver2 msg_MID360.launch```
+- 4.启动FastLio2重定位：       ``` roslaunch fast_lio_localization sentry_localize.launch```
+- 5.下发初始位姿：可通过rviz或自己写发布到初始位姿话题的脚本
+- 6.启动导航避障栈：           ``` roslaunch sentry_nav sentry_movebase.launch```
+- 7.启动GPIO充电监控：         ``` python3 ~/catkin_ws/src/behavior_tree/charging_state.py```
+- 8.启动AutoDock：             ``` roslaunch autodock_sim rover_sim.launch```
+- 9.启动串口通信网关：         ``` python3 ~/catkin_ws/src/behavior_tree/serial_bridge_node_new.py```
+- 10.启动电池数据监控节点：    ``` python3 ~/catkin_ws/src/behavior_tree/mavlinkmsg240.py```
+- 10.启动行为树：              ``` python3 ~/catkin_ws/src/behavior_tree/bhtree_final.py```
+
 ## 感谢：(Thanks to)
 
 - 定位与导航部分借鉴于开源仓库：https://github.com/66Lau/NEXTE_Sentry_Nav.git
 - 对齐充电桩部分借鉴于开源仓库：https://github.com/osrf/autodock 
+
 
