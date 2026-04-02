@@ -29,28 +29,29 @@
 ## 📂 核心项目结构 (Repository Structure)
 
 ```text
-ArduRoverMid360/
-├── sentry_nav/            # 导航层：MoveBase 配置及 TEB 局部路径规划器调参
-├── sentry_slam/           # 建图层：FAST-LIO2 及 FastLioLocalization 部署与启动配置
-└── sentry_tools/           # 工具层：包含3d点云pcd文件转化二位栅格地图和用于平滑输出控制命令的ros包
-
-behavior_tree/
-├── bhtree_final/          # 行为树核心决策层：基于 py_trees_ros 的行为树逻辑与自定义节点
-├── charging_state/        # 充电状态监控层：读取NX的GPIO端口用于判断是否在充电
-├── mavlinkmsg240/         # 自定义mavlink消息包解析：自定义 MAVLink 报文解包器 (获取电池数据)
-└── serial_bridge_node_new # 通信层：Windows 上位机与 ROS 系统的 JSON 串口双向网关
-
-autodock/                  # 自动对齐充电桩ROS包
-
-livox_ros_driver2/         # Mid360激光雷达官方驱动
-
-Start/                     # tmux一键启动脚本与上位机GUI界面
-├── winGUI/                # 用户界面
-└── start_robot.sh/        # 一键启动工具
+src
+└──ArduRoverMid360/
+|      ├── sentry_nav/            # 导航层：MoveBase 配置及 TEB 局部路径规划器调参
+|      ├── sentry_slam/           # 建图层：FAST-LIO2 及 FastLioLocalization 部署与启动配置
+|      └── sentry_tools/           # 工具层：包含3d点云pcd文件转化二位栅格地图和用于平滑输出控制命令的ros包
+|
+└──behavior_tree/
+|     ├── bhtree_final/          # 行为树核心决策层：基于 py_trees_ros 的行为树逻辑与自定义节点
+|     ├── charging_state/        # 充电状态监控层：读取NX的GPIO端口用于判断是否在充电
+|     ├── mavlinkmsg240/         # 自定义mavlink消息包解析：自定义 MAVLink 报文解包器 (获取电池数据)
+|     └── serial_bridge_node_new # 通信层：Windows 上位机与 ROS 系统的 JSON 串口双向网关
+|
+└──autodock/                  # 自动对齐充电桩ROS包
+|
+└──livox_ros_driver2/         # Mid360激光雷达官方驱动
+|
+└──Start/                     # tmux一键启动脚本与上位机GUI界面
+     ├── winGUI/                # 用户界面
+     └── start_robot.sh/        # 一键启动工具
 
 ```
 
-## 启动步骤：(Launch Steps)
+## 启动步骤：(Launch Steps) 可以参考 Start/ start_robot.sh 编写的tmux会话脚本
 - 0.启动用户GUI界面：          ``` python3 ~/catkin_ws/src/Start/winGUI.py```
 -0.启动用户 GUI 界面： ''' python3 ~/catkin_ws/src/Start/winGUI.py'  
 - 1.启动mavros连接飞控：       ```roslaunch mavros apm.launch```
@@ -65,7 +66,6 @@ Start/                     # tmux一键启动脚本与上位机GUI界面
 - 10.启动电池数据监控节点：    ``` python3 ~/catkin_ws/src/behavior_tree/mavlinkmsg240.py```
 - 10.启动行为树：              ``` python3 ~/catkin_ws/src/behavior_tree/bhtree_final.py```
 
-### 启动步骤可以参考 Start/ start_robot.sh 编写的tmux会话脚本。
 
 ## 感谢：(Thanks to)
 
