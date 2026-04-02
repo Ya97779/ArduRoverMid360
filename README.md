@@ -52,8 +52,11 @@ src
 ```
 
 ## 启动步骤：(Launch Steps) 可以参考 Start/ start_robot.sh 编写的tmux会话脚本
-- 0.启动用户GUI界面：          ``` python3 ~/catkin_ws/src/Start/winGUI.py```
--0.启动用户 GUI 界面： ''' python3 ~/catkin_ws/src/Start/winGUI.py'  
+- 0.编译运行： ```git clone https://github.com/Ya97779/ArduRoverMid360.git```
+-  ```cd ~/catkin_ws```
+-  ```catkin_make```
+-  ```source devel/setup.bash```
+-  ```bash ~/catkin_ws/src/Start/start_robot.sh```(需要在终端中安装tmux并根据需要修改.sh文件的具体路径)
 - 1.启动mavros连接飞控：       ```roslaunch mavros apm.launch```
 - 2.设置飞控EKF原点和Home：可通过GUI点击或自己写发布脚本
 - 3.启动雷达驱动：             ``` roslaunch livox_ros_driver2 msg_MID360.launch```
@@ -64,7 +67,8 @@ src
 - 8.启动AutoDock：             ``` roslaunch autodock_sim rover_sim.launch```
 - 9.启动串口通信网关：         ``` python3 ~/catkin_ws/src/behavior_tree/serial_bridge_node_new.py```
 - 10.启动电池数据监控节点：    ``` python3 ~/catkin_ws/src/behavior_tree/mavlinkmsg240.py```
-- 10.启动行为树：              ``` python3 ~/catkin_ws/src/behavior_tree/bhtree_final.py```
+- 11.启动行为树：              ``` python3 ~/catkin_ws/src/behavior_tree/bhtree_final.py```
+- 12.启动用户GUI界面：          ``` python3 ~/catkin_ws/src/Start/winGUI.py```
 
 
 ## 感谢：(Thanks to)
