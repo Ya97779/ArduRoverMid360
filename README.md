@@ -26,6 +26,14 @@
 - **视觉传感器**: 高清 USB 免驱摄像头 (针对自动对接优化)
 - **底层控制器**: ArduPilot Rover 飞控
 
+## Rviz
+<img width="2560" height="1349" alt="image" src="https://github.com/user-attachments/assets/5f307a5f-97c3-416b-93c7-ba5e9dfe542b" />
+<img width="2314" height="1319" alt="image" src="https://github.com/user-attachments/assets/8c4ad7e1-c770-4244-ad86-cca90706db0e" />
+
+## GUI界面
+<img width="625" height="1229" alt="image" src="https://github.com/user-attachments/assets/7fe1d456-c97f-4316-8a89-767b6ffbb916" />
+
+
 ## 📂 核心项目结构 (Repository Structure)
 
 ```text
