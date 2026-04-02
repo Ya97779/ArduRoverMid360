@@ -1,0 +1,124 @@
+base_local_planner: "teb_local_planner/TebLocalPlannerROS"
+
+# move_base 控制频率
+controller_frequency: 20.0
+# controller_patience: 15.0
+
+TebLocalPlannerROS:
+  # ===================== Frame & Topic =====================
+  odom_topic: Odometry
+  map_frame: map
+
+  # ===================== Trajectory =====================
+  teb_autosize: true
+  dt_ref: 0.3
+  dt_hysteresis: 0.1
+
+  # 轨迹点数量（给个合理默认，避免过少导致不稳定）
+  min_samples: 3
+  max_samples: 500
+
+  # 迭代次数
+  no_inner_iterations: 5
+  no_outer_iterations: 4
+
+  # ===================== Robot Model (diff-drive) =====================
+  max_vel_x: 1.0
+  max_vel_x_backwards: 0.4
+  max_vel_theta: 0.8
+
+  acc_lim_x: 1.0
+  acc_lim_theta: 1.0
+
+  # 差速车不能侧移：彻底关掉 y 方向
+  max_vel_y: 0.0
+  acc_lim_y: 0.0
+
+  # 最小速度（治“原地转不动/前后抖”很关键）
+  min_vel_x: 0.0              # 建议放开，不要强制必须>=0.05
+  min_trans_vel: 0.02         # 允许更慢地爬/微调
+  min_rot_vel: 0.0          # 抬高一点，避免给太小角速度转不起来
+
+  # diff-drive 可原地转
+  min_turning_radius: 0.0
+  wheelbase: 0.3
+
+  # 起步允许倒一下找姿态（治90度起步抖）
+  allow_init_with_backwards_motion: false
+
+  # footprint
+  footprint_model:
+    type: "circular"
+    radius: 0.3
+  is_footprint_dynamic: false
+
+  # ===================== Goal Tolerance =====================
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
+  free_goal_vel: false
+
+  # ===================== Global Plan / Via-points =====================
+  global_plan_overwrite_orientation: true
+  global_plan_viapoint_sep: 0.3
+  max_global_plan_lookahead_dist: 3.0
+  global_plan_prune_distance: 1.0     # 常用，防止一直盯着过期段
+
+  # ===================== Obstacles =====================
+  min_obstacle_dist: 0.2
+  inflation_dist: 0.4
+  include_costmap_obstacles: true
+  include_dynamic_obstacles: false
+
+  costmap_obstacles_behind_robot_dist: 1.0
+  obstacle_poses_affected: 30
+
+  # 关联障碍参数（给全）
+  obstacle_association_cutoff_factor: 5.0
+  obstacle_association_force_inclusion_factor: 1.5
+
+  # ===================== Optimization =====================
+  optimization_activate: true
+  optimization_verbose: false
+  penalty_epsilon: 0.05
+
+  # ===================== Feasibility =====================
+  feasibility_check_no_poses: 5
+
+  # ===================== Recovery / Oscillation =====================
+  oscillation_recovery: true
+  switching_blocking_period: 0.0
+  shrink_horizon_backup: true
+
+  # ===================== Weights =====================
+  weight_optimaltime: 10.0
+  weight_shortest_path: 0.0
+  weight_obstacle: 20.0
+  weight_inflation: 0.1
+  weight_viapoint: 10.0
+
+  # non-holonomic 约束要拉高（差速车）
+  weight_kinematics_nh: 1000.0
+  # 不要把“必须前进”逼太狠，否则90度起步很容易振荡
+  weight_kinematics_forward_drive: 10.0
+  weight_kinematics_turning_radius: 1.0
+
+  weight_acc_lim_x: 1.0
+  weight_acc_lim_theta: 1.0
+  weight_acc_lim_y: 0.0
+
+  weight_max_vel_x: 1.0
+  weight_max_vel_theta: 1.0
+  weight_max_vel_y: 0.0
+
+  # ===================== Homotopy (optional) =====================
+  enable_homotopy_class_planning: false
+  enable_multithreading: true
+  max_number_classes: 4
+  roadmap_graph_no_samples: 15
+  roadmap_graph_area_width: 5.0
+  roadmap_graph_area_length_scale: 1.0
+
+  # ===================== Visualization =====================
+  publish_feedback: true
+  visualize_hc_graph: false
+  visualize_with_time_as_z_axis_scale: 0.0

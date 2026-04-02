@@ -1,0 +1,34 @@
+<launch>
+
+    <!-- 发布一个雷达body到机器人足端body_foot的静态映射 -->
+	<!-- <node pkg="tf2_ros" type="static_transform_publisher" name="tf_pub_3" args="0 0 0 0 0 0 camera_init body" /> -->
+
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base1" output="screen" clear_params="true" args="/map:=prior_map /odom:=Odometry">
+        <rosparam file="$(find sentry_nav)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find sentry_nav)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find sentry_nav)/param/global_planner_params.yaml" command="load" />
+        <rosparam file="$(find sentry_nav)/param/teb_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find sentry_nav)/param/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find sentry_nav)/param/global_costmap_params.yaml" command="load" />
+
+
+    </node>
+
+    <node pkg="sentry_nav" type="trans_tf_2d" name="trans_tF_2d" />
+    
+    <include file="$(find velocity_smoother_ema)/launch/velocity_smoother_ema.launch">
+	</include>
+    <node pkg="sentry_nav" type="cmd_mavros_node" name="cmd_mavros_node" output="screen">
+        <param name="input_topic" value="/cmd_vel" />
+        <param name="output_topic" value="/mavros/setpoint_raw/local" />
+        <param name="max_linear_x" value="2" />
+        <param name="max_angular_z" value="2" />
+        <param name="timeout" value="5" />
+        <param name="publish_rate" value="20.0" />
+    </node>
+
+
+    
+
+
+</launch>

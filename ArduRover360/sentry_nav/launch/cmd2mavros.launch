@@ -1,0 +1,16 @@
+<launch>
+    
+
+   <node pkg="sentry_nav" type="cmd_mavros_node" name="cmd_mavros_node" output="screen">
+        <param name="input_topic" value="/cmd_vel" />
+        <param name="output_topic" value="/mavros/setpoint_raw/local" />
+        <param name="max_linear_x" value="2" />
+        <param name="max_angular_z" value="2" />
+        <param name="timeout" value="1" />
+        <param name="publish_rate" value="20.0" />
+    </node>
+
+    
+
+
+</launch>

@@ -1,0 +1,22 @@
+<launch>
+  <!-- 参数：按你系统实际话题改 -->
+  <arg name="raw_cmd_topic" default="/cmd_vel"/>
+  <arg name="cmd_topic" default="/smooth_cmd_vel"/>
+
+  <!-- 平滑参数 -->
+  <arg name="alpha_v" default="0.2"/>
+  <arg name="alpha_w" default="0.2"/>
+  <arg name="cmd_rate" default="20.0"/>
+  <arg name="timeout" default="0.2"/>
+
+  <node pkg="velocity_smoother_ema" type="velocity_smoother_ema_node" name="velocity_smoother_ema_node" output="screen">
+
+    <param name="raw_cmd_topic" value="$(arg raw_cmd_topic)"/>
+    <param name="cmd_topic" value="$(arg cmd_topic)"/>
+
+    <param name="alpha_v" value="$(arg alpha_v)"/>
+    <param name="alpha_w" value="$(arg alpha_w)"/>
+    <param name="cmd_rate" value="$(arg cmd_rate)"/>
+    <param name="timeout" value="$(arg timeout)"/>
+  </node>
+</launch>

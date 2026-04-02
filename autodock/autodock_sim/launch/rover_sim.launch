@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Global param -->
+  <arg name="enable_sim" default="false"/>
+  <arg name="autodock_server" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="use_sim_time" default="$(arg enable_sim)"/>
+  <arg name="video0_exists" default="$(eval 'if [ -e /dev/video0 ]; then echo 1; else echo 0; fi' == '1')" />
+  <arg name="video_device" 
+       default="$(eval '/dev/video0' if arg('video0_exists') else '/dev/video1')" />
+
+  <param name="/use_sim_time" value="$(arg use_sim_time)"/>
+  
+  <!-- Launch USB Cam Node -->
+  <node pkg="usb_cam" type="usb_cam_node" name="usb_cam" respawn="true" respawn_delay="2">
+    <!-- <param name="video_device" value="$(arg video_device)"/> -->
+    <param name="video_device" value="/dev/v4l/by-id/usb-Generic_USB_camera_100011-video-index0"/>
+    <param name="image_width" value="1280"/>
+    <param name="image_height" value="720"/>
+    <param name="pixel_format" value="mjpeg"/>
+    <param name="framerate" value="30" />
+    <param name="camera_name" value="usb_cam" />
+    <param name="camera_info_url"
+           value="file://$(find autodock_examples)/configs/usb_cam.yaml"/>
+  </node>
+
+  <!-- Launch AutoDock Server Node -->
+  <group if="$(arg autodock_server)">
+    <include file="$(find autodock_core)/launch/autodock_server.launch">
+      <arg name="autodock_config" default="$(find autodock_examples)/configs/rover_robot.yaml"/>
+    </include>
+  </group>
+
+  <!-- launch fiducial detect  -->
+  <node pkg="aruco_detect" name="aruco_detect"
+        type="aruco_detect" output="log" respawn="false">
+    <param name="/use_sim_time" value="$(arg use_sim_time)"/>
+    <param name="image_transport" value="compressed"/>
+    <param name="publish_images" value="true" />
+    <param name="do_pose_estimation" value="true"/>
+    <param name="verbose" value="false"/>
+    <param name="dictionary" value="8"/>   <!-- dict size, include border -->
+    <!-- Map of ID to marker size: 0.15m and 0.05m -->
+    <param name="fiducial_len_override" value="10: 0.05, 11: 0.05, 20: 0.02"/>
+    <remap from="camera/compressed" to="/usb_cam/image_raw/compressed"/>
+    <remap from="camera_info" to="/usb_cam/camera_info"/>
+  </node>
+
+<node pkg="autodock_core"
+      type="fiducial_tf_broadcaster.py"
+      name="fiducial_tf_broadcaster"
+      output="screen">
+  <param name="parent_frame" value="camera_link"/>
+</node>
+
+  <!-- tf from robot base to camera -->
+  <node pkg="tf2_ros" 
+        type="static_transform_publisher"
+        name="link1_broadcaster"
+        args="-0.15 0 .25 1.57 0 -1.57 body_foot camera_link"/>
+
+</launch>

@@ -1,0 +1,12 @@
+<launch>
+    <node pkg="sentry_nav" type="odom_resample_to_mavodom_node" name="odom_resample_to_mavodom_node" output="screen">
+    <param name="in_odom_topic" value="/Odometry"/>
+    <param name="out_odom_topic" value="/mavros/odometry/out"/>
+
+    <param name="world_frame" value="odom"/>
+    <param name="body_frame"  value="body"/>
+
+    <param name="out_rate_hz" value="30.0"/>
+    <param name="mode" value="predict"/>
+    </node>
+</launch>

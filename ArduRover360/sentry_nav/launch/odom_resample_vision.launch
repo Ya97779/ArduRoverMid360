@@ -1,0 +1,12 @@
+<launch>    
+
+    <node pkg="sentry_nav" type="odom_resample_to_vision_node" name="odom_resample_to_vision_node" output="screen">
+
+      <param name="odom_topic" value="/Odometry"/>
+      <param name="world_frame" value="camera_init"/>
+      <param name="out_rate_hz" value="30.0"/>
+      <param name="mode" value="predict"/>  <!-- hold 或 predict -->
+      <param name="max_predict_dt" value="0.15"/>
+      
+    </node>
+</launch>
