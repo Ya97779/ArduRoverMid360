@@ -1,3 +1,4 @@
+🌐 **简体中文** | [English Version](README_EN.md)
 # 实现的功能：建图、重定位、导航、避障、自动充电
 视频演示：【MID360+单目实现差速小车重定位、导航避障与自动充电】 https://www.bilibili.com/video/BV12gXhBhEtp/?share_source=copy_web&vd_source=1d13dd5ae897228eaa8f3bbc38f8aba6
 # 🚀 ArduRover-Mid360: 移动机器人系统
