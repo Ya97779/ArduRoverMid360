@@ -31,7 +31,8 @@
 <img width="2314" height="1319" alt="image" src="https://github.com/user-attachments/assets/8c4ad7e1-c770-4244-ad86-cca90706db0e" />
 
 ## GUI界面
-<img width="625" height="1229" alt="image" src="https://github.com/user-attachments/assets/7fe1d456-c97f-4316-8a89-767b6ffbb916" />
+<img width="626" height="1234" alt="image" src="https://github.com/user-attachments/assets/701132d9-8de7-4a1e-8232-a932fb0c268b" />
+
 
 
 ## 📂 核心项目结构 (Repository Structure)
