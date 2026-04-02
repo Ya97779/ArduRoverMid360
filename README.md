@@ -52,11 +52,13 @@ src
 ```
 
 ## 启动步骤：(Launch Steps) 可以参考 Start/ start_robot.sh 编写的tmux会话脚本
-- 0.编译运行： ```git clone https://github.com/Ya97779/ArduRoverMid360.git```
+### 方式一：通过bash脚本一次全部拉起：
+-  ```git clone https://github.com/Ya97779/ArduRoverMid360.git```
 -  ```cd ~/catkin_ws```
 -  ```catkin_make```
 -  ```source devel/setup.bash```
 -  ```bash ~/catkin_ws/src/Start/start_robot.sh```(需要在终端中安装tmux并根据需要修改.sh文件的具体路径)
+### 方式二：逐个启动
 - 1.启动mavros连接飞控：       ```roslaunch mavros apm.launch```
 - 2.设置飞控EKF原点和Home：可通过GUI点击或自己写发布脚本
 - 3.启动雷达驱动：             ``` roslaunch livox_ros_driver2 msg_MID360.launch```
