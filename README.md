@@ -45,9 +45,14 @@ autodock/                  # 自动对齐充电桩ROS包
 livox_ros_driver2/         # Mid360激光雷达官方驱动
 
 Start/                     # tmux一键启动脚本与上位机GUI界面
+├── winGUI/                # 用户界面
+└── start_robot.sh/        # 一键启动工具
+
 ```
 
 ## 启动步骤：(Launch Steps)
+- 0.启动用户GUI界面：          ``` python3 ~/catkin_ws/src/Start/winGUI.py```
+-0.启动用户 GUI 界面： ''' python3 ~/catkin_ws/src/Start/winGUI.py'  
 - 1.启动mavros连接飞控：       ```roslaunch mavros apm.launch```
 - 2.设置飞控EKF原点和Home：可通过GUI点击或自己写发布脚本
 - 3.启动雷达驱动：             ``` roslaunch livox_ros_driver2 msg_MID360.launch```
@@ -59,6 +64,8 @@ Start/                     # tmux一键启动脚本与上位机GUI界面
 - 9.启动串口通信网关：         ``` python3 ~/catkin_ws/src/behavior_tree/serial_bridge_node_new.py```
 - 10.启动电池数据监控节点：    ``` python3 ~/catkin_ws/src/behavior_tree/mavlinkmsg240.py```
 - 10.启动行为树：              ``` python3 ~/catkin_ws/src/behavior_tree/bhtree_final.py```
+
+### 启动步骤可以参考 Start/ start_robot.sh 编写的tmux会话脚本。
 
 ## 感谢：(Thanks to)
 
