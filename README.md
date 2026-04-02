@@ -75,7 +75,7 @@ src
 
 ## 感谢：(Thanks to)
 
-- 定位与导航部分灵感来自：https://github.com/66Lau/NEXTE_Sentry_Nav.git
-- 对齐充电桩部分灵感来自：https://github.com/osrf/autodock 
+- 定位与导航部分二次开发于开源仓库：https://github.com/66Lau/NEXTE_Sentry_Nav.git
+- 对齐充电桩部分二次开发于开源仓库：https://github.com/osrf/autodock 
 
 
